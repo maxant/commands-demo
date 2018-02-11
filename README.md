@@ -3,7 +3,7 @@
 A demonstration of implementing "Commands", a mechanism to "guarantee", within limit ;-)data consistency across
 multiple microservices. See blog article http://blog.maxant.co.uk/pebble/TODO.
 
-More information at [../src](CommandService)
+More information at [CommandService](./src)
 
 Based on Swarm application with:
 
