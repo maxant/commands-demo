@@ -1,6 +1,11 @@
 # What is this?
 
-A Swarm application with:
+A demonstration of implementing "Commands", a mechanism to "guarantee", within limit ;-)data consistency across
+multiple microservices. See blog article http://blog.maxant.co.uk/pebble/TODO.
+
+More information at [../src](CommandService)
+
+Based on Swarm application with:
 
 - JAX-RS
 - CDI
