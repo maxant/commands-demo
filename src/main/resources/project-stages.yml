@@ -1,0 +1,21 @@
+swarm:
+   port:
+      offset: 1
+   context:
+      path: /demo
+   ds:
+      connection:
+         url: jdbc:mysql://localhost:3306/command_demo?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
+      username: root
+      password: password
+      name: primary
+commandservice:
+   batch:
+      size: 10 #how many commands should it try to execute in a batch (each within its own transaction
+   timeout: 30000 #how long should it wait before letting other instances retry a command?
+---
+project:
+   stage: test
+---
+project:
+   stage: prod
