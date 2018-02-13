@@ -54,8 +54,8 @@ public class Command {
     public Command() {
     }
 
-    public Command(Class command, String context) {
-        this.command = command.getCanonicalName();
+    public Command(String command, String context) {
+        this.command = command;
         this.context = context;
     }
 

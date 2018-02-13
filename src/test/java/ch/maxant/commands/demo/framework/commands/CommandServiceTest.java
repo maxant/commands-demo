@@ -1,6 +1,7 @@
 package ch.maxant.commands.demo.framework.commands;
 
 import ch.maxant.commands.demo.DbTest;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -67,12 +68,21 @@ public class CommandServiceTest extends DbTest {
         });
         when(commandService.context.getBusinessObject(eq(CommandService.class))).thenReturn(commandService);
 
-        executableCommand = (idempotencyId, context) -> {
-            executionCount.incrementAndGet();
-            if(throwExceptionDuringCommandExecution){
-                throw new RuntimeException();
+        executableCommand = new ExecutableCommand() {
+            @Override
+            public void execute(String idempotencyId, JsonNode context) {
+                executionCount.incrementAndGet();
+                if (throwExceptionDuringCommandExecution) {
+                    throw new RuntimeException();
+                }
+            }
+
+            @Override
+            public String getName() {
+                return "name";
             }
         };
+
         when(commandService.executors.iterator()).then((i) ->
             Collections.singletonList(executableCommand).iterator()
         );
@@ -95,7 +105,7 @@ public class CommandServiceTest extends DbTest {
         // event - all ok
         // ///////////////////////////////////////
         final String commandContext = "{}";
-        Command cmd = new Command(executableCommand.getClass(), commandContext);
+        Command cmd = new Command("name", commandContext);
 
         em.getTransaction().begin();
         em.persist(cmd);
@@ -127,7 +137,7 @@ public class CommandServiceTest extends DbTest {
         // ///////////////////////////////////////
         throwExceptionDuringCommandExecution = true;
 
-        cmd = new Command(executableCommand.getClass(), commandContext);
+        cmd = new Command("name", commandContext);
 
         em.getTransaction().begin();
         em.persist(cmd);
@@ -200,7 +210,7 @@ public class CommandServiceTest extends DbTest {
         // ///////////////////////////////////////
         throwExceptionDuringCommandExecution = true;
 
-        cmd = new Command(executableCommand.getClass(), commandContext);
+        cmd = new Command("name", commandContext);
 
         em.getTransaction().begin();
         em.persist(cmd);
@@ -276,7 +286,7 @@ public class CommandServiceTest extends DbTest {
         // ///////////////////////////////////////
         throwExceptionDuringCommandExecution = false;
 
-        cmd = new Command(executableCommand.getClass(), commandContext);
+        cmd = new Command("name", commandContext);
 
         em.getTransaction().begin();
         em.persist(cmd);

@@ -123,7 +123,7 @@ public class CommandService {
         try {
             JsonNode n = objectMapper.readTree(command.getContext());
             for(ExecutableCommand ec : executors){
-                if(ec.getClass().getCanonicalName().equals(command.getCommand())){
+                if(ec.getName().equals(command.getCommand())){
                     ec.execute(command.getIdempotencyId(), n);
                     break;
                 }
@@ -131,7 +131,7 @@ public class CommandService {
 
             commandRepo.delete(command); //its no longer needed. if this fails, no worries, timer will try again and ARO is idempotent
         } catch (Exception e) {
-            if (command.getAttempts() < MAX_NUM_RETRIES) {
+            if (command.getAttempts() < MAX_NUM_RETRIES - 1) {
                 logger.error("Failed to execute command " + command.getId() + ". Command will be retried.", e);
             } else {
                 logger.error("Failed to execute command " + command.getId() + ". Command will NOT be retried.", e);

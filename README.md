@@ -24,6 +24,10 @@ Run tests using Mysql, rather than in-memory H2:
 
    mvn test -Dtest.use.mysql
 
+Debug:
+
+    -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1044
+
 #Useful Links
 
 - https://wildfly-swarm.gitbooks.io/wildfly-swarm-users-guide/content/

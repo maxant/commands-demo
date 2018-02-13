@@ -16,7 +16,7 @@ public class TaskService {
     public void createTask(long caseNr, String textForTask) {
         String context = createContext(caseNr, textForTask);
 
-        Command command = new Command(CreateTaskCommand.class, context);
+        Command command = new Command(CreateTaskCommand.NAME, context);
 
         commandService.persistCommand(command);
     }

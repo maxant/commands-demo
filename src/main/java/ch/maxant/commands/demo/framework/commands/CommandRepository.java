@@ -46,6 +46,7 @@ public class CommandRepository {
         em.persist(command);
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW) //in case caller already called setRollbackOnly, eg container
     public void resetLockAfterFailure(Command command) {
         command = em.find(Command.class, command.getId());
         command.resetLocked();

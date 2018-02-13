@@ -31,7 +31,7 @@ public class CommandTest extends DbTest {
             // create
             // //////////////////////////////
             for(int i = 0; i < 11; i++){
-                commandRepo.create(new Command(String.class, "{\"asdf" + i + "\": 123}"));
+                commandRepo.create(new Command("name", "{\"asdf" + i + "\": 123}"));
             }
             em.getTransaction().commit();
 
@@ -41,7 +41,7 @@ public class CommandTest extends DbTest {
             Command cmd;
             for(int i = 0; i < 11; i++){
                 cmd = cmds.get(i);
-                assertEquals("java.lang.String", cmd.getCommand());
+                assertEquals("name", cmd.getCommand());
                 assertEquals("{\"asdf" + i + "\": 123}", cmd.getContext());
                 assertEquals(0, cmd.getAttempts());
                 assertNotNull(cmd.getIdempotencyId());
@@ -88,7 +88,7 @@ public class CommandTest extends DbTest {
             assertEquals(10, cmds.size());
             for(int i = 0; i < 10; i++){
                 cmd = cmds.get(i);
-                assertEquals("java.lang.String", cmd.getCommand());
+                assertEquals("name", cmd.getCommand());
                 assertEquals("{\"asdf" + i + "\": 123}", cmd.getContext());
                 assertEquals(0, cmd.getAttempts());
                 assertNotNull(cmd.getIdempotencyId());
@@ -139,7 +139,7 @@ public class CommandTest extends DbTest {
 
             //the reset one
             cmd = cmds.get(0);
-            assertEquals("java.lang.String", cmd.getCommand());
+            assertEquals("name", cmd.getCommand());
             assertEquals("{\"asdf1\": 123}", cmd.getContext());
             assertEquals(1, cmd.getAttempts());
             assertNotNull(cmd.getIdempotencyId());
@@ -147,7 +147,7 @@ public class CommandTest extends DbTest {
 
             //non-confirmed one
             cmd = cmds.get(1);
-            assertEquals("java.lang.String", cmd.getCommand());
+            assertEquals("name", cmd.getCommand());
             assertEquals("{\"asdf9\": 123}", cmd.getContext());
             assertEquals(0, cmd.getAttempts());
             assertNotNull(cmd.getIdempotencyId());
@@ -155,7 +155,7 @@ public class CommandTest extends DbTest {
 
             //from other thread
             cmd = cmds.get(2);
-            assertEquals("java.lang.String", cmd.getCommand());
+            assertEquals("name", cmd.getCommand());
             assertEquals("{\"asdf10\": 123}", cmd.getContext());
             assertEquals(0, cmd.getAttempts());
             assertNotNull(cmd.getIdempotencyId());

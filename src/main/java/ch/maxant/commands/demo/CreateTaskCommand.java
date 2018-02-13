@@ -8,10 +8,16 @@ import javax.ejb.Stateless;
 @Stateless
 public class CreateTaskCommand implements ExecutableCommand {
 
+    public static final String NAME = "CreateTask";
+
     @Override
     public void execute(String idempotencyId, JsonNode context) {
         long caseNr = context.get("caseNr").longValue();
-
         System.out.println("TODO CALL MICROSERVICE HERE: " + caseNr);
+    }
+
+    @Override
+    public String getName() {
+        return NAME;
     }
 }
