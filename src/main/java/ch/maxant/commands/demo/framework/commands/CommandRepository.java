@@ -28,7 +28,8 @@ public class CommandRepository {
         //
         // https://stackoverflow.com/questions/20091527/select-only-unlocked-rows-mysql
 
-        //WARNING: DOES NOT WORK PROPERLY IN ORACLE!! TODO find link to where that is documented
+        // WARNING: DOES NOT WORK PROPERLY IN ORACLE!! see "for update" at
+        // https://docs.jboss.org/hibernate/orm/5.2/userguide/html_single/chapters/locking/Locking.html
 
         List<Command> commands = em.createNamedQuery(Command.NQSelectAllAvailable.NAME, Command.class)
                 .setMaxResults(batchSize)
