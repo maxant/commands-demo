@@ -1,7 +1,7 @@
 # What is this?
 
 A demonstration of implementing "Commands", a mechanism to "guarantee", within limit ;-)data consistency across
-multiple microservices. See blog article http://blog.maxant.co.uk/pebble/TODO.
+multiple microservices. See the blog article: http://blog.maxant.co.uk/pebble/2018/02/18/1518974314273.html.
 
 More information [here](./src/main/java/ch/maxant/commands/demo/framework/commands/README.md)
 
